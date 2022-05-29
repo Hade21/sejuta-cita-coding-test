@@ -2,6 +2,7 @@ import React from "react";
 
 const Typogrphy = (props) => {
   const {
+    id,
     font = "font-opensans",
     size = "text-base",
     color = "text-white",
@@ -10,7 +11,9 @@ const Typogrphy = (props) => {
     children,
   } = props;
   return (
-    <p className={`${font} ${size} ${color} ${italic} ${weight}`}>{children}</p>
+    <p className={`${font} ${size} ${color} ${italic} ${weight}`} id={id}>
+      {children}
+    </p>
   );
 };
 

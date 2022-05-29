@@ -3,8 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   categoryId: 0,
   page: 0,
-  size: 0,
+  size: 5,
   contentBook: [],
+  bookmarked: [],
 };
 
 export const bookSlice = createSlice({
@@ -35,9 +36,16 @@ export const bookSlice = createSlice({
         contentBook: action.payload,
       };
     },
+    setBookmarked: (state, action) => {
+      return {
+        ...state,
+        bookmarked: [...state.bookmarked, action.payload],
+      };
+    },
   },
 });
 
-export const { setCategory, setPage, setSize, setContent } = bookSlice.actions;
+export const { setCategory, setPage, setSize, setContent, setBookmarked } =
+  bookSlice.actions;
 
 export default bookSlice.reducer;

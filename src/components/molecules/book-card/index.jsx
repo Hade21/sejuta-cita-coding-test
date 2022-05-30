@@ -29,19 +29,24 @@ const BookCard = (props) => {
     <div
       className="wrapper block p-6 bg-background rounded-lg bg-opacity-80 w-full h-full"
       id={id}
+      key={id}
     >
-      <div className="flex gap-6 justify-between h-full">
-        <div className="cover w-2/5">
+      <div className="flex flex-col sm:flex-row gap-6 justify-between h-full">
+        <div className="cover sm:w-2/5 w-full">
           <img src={image} alt="cover" />
         </div>
-        <div className="caption w-3/5 text-left flex flex-col gap-3 justify-between h-full">
+        <div className="caption sm:w-3/5 w-full text-left flex flex-col gap-3 justify-between h-full">
           <div className="detail flex flex-col gap-3">
-            <Typography font="font-rubik" size="text-xl" weight="font-semibold">
+            <Typography
+              font="font-rubik"
+              size="xl:text-xl lg:text-sm"
+              weight="font-semibold"
+            >
               {title}
             </Typography>
             <Typography
               font="font-opensans"
-              size="text-base"
+              size="xl:text-base lg:text-xs"
               weight="font-normal"
               color="text-slate-300"
             >
@@ -49,7 +54,7 @@ const BookCard = (props) => {
             </Typography>
             <Typography
               font="font-opensans"
-              size="text-base"
+              size="xl:text-base lg:text-xs"
               weight="font-medium"
             >
               {desc}
@@ -57,7 +62,7 @@ const BookCard = (props) => {
           </div>
           <Button
             font="font-opensans"
-            size="text-base"
+            size="xl:text-base lg:text-xs"
             weight="font-light"
             px="px-0"
             fontColor="text-yellow-500"

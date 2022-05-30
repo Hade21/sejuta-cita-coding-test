@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Typography, Button } from "../../atoms";
 import { BookmarkCard } from "../../molecules";
 
@@ -7,6 +8,26 @@ const BookmarkContent = () => {
   const [content, setContent] = useState([]);
   const [page, setPage] = useState(0);
   const size = 5;
+  const search = useSelector((state) => state.book.search);
+
+  const [loopContent, setLoopContent] = useState(content);
+
+  useEffect(() => {
+    if (search.length !== 0) {
+      const items = content.filter((item) =>
+        item.title.toLowerCase().includes(search.toLowerCase())
+      );
+      setLoopContent(items);
+      if (items.length === 0) {
+        const res = content.filter((item) =>
+          item.authors[0].toLowerCase().includes(search.toLowerCase())
+        );
+        setLoopContent(res);
+      }
+    } else {
+      setLoopContent(content);
+    }
+  }, [search, content]);
 
   useEffect(() => {
     setBookmarkedContent(JSON.parse(localStorage.getItem("bookmarked")));
@@ -36,8 +57,8 @@ const BookmarkContent = () => {
   };
 
   const bookList = (
-    <div className="wrapper p-12 grid grid-cols-2 gap-4 w-full">
-      {content.map((item) => {
+    <div className="wrapper sm:p-12 py-12 px-4 grid lg:grid-cols-2 grid-cols-1 gap-4 w-full">
+      {loopContent.map((item) => {
         return (
           <BookmarkCard
             title={item.title}
@@ -53,18 +74,23 @@ const BookmarkContent = () => {
   );
   const noBook = (
     <div className="wrapper flex justify-center items-center h-full min-h-screen">
-      <Typography font="font-rubik" size="text-4xl" weight="font-semibold">
-        No books are bookmarked
+      <Typography
+        font="font-rubik"
+        size="lg:text-4xl sm:text-2xl"
+        weight="font-semibold"
+      >
+        No Books Here
       </Typography>
     </div>
   );
   return (
     <div className="bg-content w-full h-full min-h-screen">
-      {bookmarkedContent.length > 0 ? bookList : noBook}
+      {loopContent.length > 0 ? bookList : noBook}
       {bookmarkedContent.length > 5 ? (
         <div className="buttons flex items-center w-full h-fit py-6 justify-center">
           <Button
             font="font-opensans"
+            size="lg:text-base sm:text-xs"
             onClick={() => {
               setPage(page - 5);
             }}
@@ -74,6 +100,7 @@ const BookmarkContent = () => {
           </Button>
           <Button
             font="font-opensans"
+            size="lg:text-base sm:text-xs"
             onClick={() => {
               setPage(page + 5);
             }}

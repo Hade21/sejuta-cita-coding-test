@@ -8,10 +8,14 @@ const Typogrphy = (props) => {
     color = "text-white",
     italic = "no-itlic",
     weight = "font-normal",
+    width = "w-full",
     children,
   } = props;
   return (
-    <p className={`${font} ${size} ${color} ${italic} ${weight}`} id={id}>
+    <p
+      className={`${font} ${size} ${color} ${italic} ${weight} ${width}`}
+      id={id}
+    >
       {children}
     </p>
   );

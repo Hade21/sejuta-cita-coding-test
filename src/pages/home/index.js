@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <section>
       <Header />
-      <div className="content flex pt-16">
+      <div className="content flex lg:pt-16 pt-14">
         <SideMenu />
         <ContentWrapper />
       </div>

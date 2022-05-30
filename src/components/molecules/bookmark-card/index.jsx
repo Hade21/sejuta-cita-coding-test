@@ -11,18 +11,22 @@ const BookmarkCard = (props) => {
       className="wrapper block p-6 bg-background rounded-lg bg-opacity-80 w-full h-full"
       id={id}
     >
-      <div className="flex gap-6 justify-between h-full">
-        <div className="cover w-2/5">
+      <div className="flex flex-col sm:flex-row gap-6 justify-between h-full">
+        <div className="cover sm:w-2/5 w-full">
           <img src={image} alt="cover" />
         </div>
-        <div className="caption w-3/5 text-left flex flex-col gap-3 justify-between h-full">
+        <div className="caption sm:w-3/5 w-full text-left flex flex-col gap-3 justify-between h-full">
           <div className="detail flex flex-col gap-3">
-            <Typography font="font-rubik" size="text-xl" weight="font-semibold">
+            <Typography
+              font="font-rubik"
+              size="lg:text-xl sm:text-lg"
+              weight="font-semibold"
+            >
               {title}
             </Typography>
             <Typography
               font="font-opensans"
-              size="text-base"
+              size="lg:text-base text-sm"
               weight="font-normal"
               color="text-slate-300"
             >
@@ -30,7 +34,7 @@ const BookmarkCard = (props) => {
             </Typography>
             <Typography
               font="font-opensans"
-              size="text-base"
+              size="lg:text-base text-sm"
               weight="font-medium"
             >
               {desc}
@@ -38,7 +42,7 @@ const BookmarkCard = (props) => {
           </div>
           <Button
             font="font-opensans"
-            size="text-base"
+            size="lg:text-base text-sm"
             weight="font-light"
             px="px-0"
             fontColor="text-yellow-500"

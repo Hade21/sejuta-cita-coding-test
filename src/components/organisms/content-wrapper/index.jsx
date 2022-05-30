@@ -20,7 +20,6 @@ const ContentWrapper = () => {
   const size = useSelector((state) => state.book.size);
   const categoryId = useSelector((state) => state.book.categoryId);
   const content = useSelector((state) => state.book.contentBook);
-  console.log(page, size, categoryId, content);
 
   useEffect(() => {
     async function getData() {
@@ -29,15 +28,12 @@ const ContentWrapper = () => {
         const res = await axios.get(endpoint);
         if (res.status === 200) {
           dispatch(setContent(res.data));
-          console.log(content);
         }
       } catch (err) {}
     }
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId, page, size]);
-
-  console.log(content);
 
   const bookList = (
     <div className="wrapper p-12 grid grid-cols-2 gap-4 w-full">

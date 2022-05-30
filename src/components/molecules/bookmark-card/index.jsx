@@ -1,29 +1,10 @@
-import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import { Button, Typography } from "../../atoms";
 
-const BookCard = (props) => {
-  const { title, image, desc, author, id } = props;
-  const [bookmark, setBookmark] = useState(false);
-  const content = useSelector((state) => state.book.contentBook);
-
-  const handleBookmark = (e) => {
-    setBookmark(!bookmark);
-    const id = Number(e.target.parentElement.parentElement.parentElement.id);
-    const bookmarked = JSON.parse(localStorage.getItem("bookmarked"));
-    console.log(bookmarked);
-    const index = bookmarked.findIndex((item) => item.id === id);
-    if (index === -1 || bookmarked === null) {
-      const item = content.filter((item) => item.id === id)[0];
-      bookmarked.push(item);
-      localStorage.setItem("bookmarked", JSON.stringify(bookmarked));
-    } else {
-      bookmarked.splice(index, 1);
-      localStorage.setItem("bookmarked", JSON.stringify(bookmarked));
-    }
-  };
+const BookmarkCard = (props) => {
+  const { image, title, author, desc, handleRemove, id } = props;
 
   return (
     <div
@@ -61,10 +42,9 @@ const BookCard = (props) => {
             weight="font-light"
             px="px-0"
             fontColor="text-yellow-500"
-            onClick={handleBookmark}
+            onClick={handleRemove}
           >
-            <FontAwesomeIcon icon={faBookmark} />{" "}
-            {bookmark ? "Bookmarked" : "Bookmark"}
+            <FontAwesomeIcon icon={faTrash} /> Remove
           </Button>
         </div>
       </div>
@@ -72,4 +52,4 @@ const BookCard = (props) => {
   );
 };
 
-export default BookCard;
+export default BookmarkCard;

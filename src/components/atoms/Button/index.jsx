@@ -16,7 +16,9 @@ const Button = (props) => {
   return (
     <button
       className={`${px} ${py} ${bgColor} ${font} ${fontColor} ${size} ${
-        disabled ? "" : `hover:text-slate-400 active:translate-y-1`
+        disabled
+          ? `text-slate-400`
+          : `hover:text-slate-400 active:translate-y-1`
       } transition-all`}
       type={type}
       disabled={disabled}

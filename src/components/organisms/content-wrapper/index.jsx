@@ -3,7 +3,7 @@ import {
   faArrowRightLong,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "../../../app/api/axios";
 import {
@@ -20,6 +20,26 @@ const ContentWrapper = () => {
   const size = useSelector((state) => state.book.size);
   const categoryId = useSelector((state) => state.book.categoryId);
   const content = useSelector((state) => state.book.contentBook);
+  const search = useSelector((state) => state.book.search);
+
+  const [loopContent, setLoopContent] = useState(content);
+
+  useEffect(() => {
+    if (search.length !== 0) {
+      const items = content.filter((item) =>
+        item.title.toLowerCase().includes(search.toLowerCase())
+      );
+      setLoopContent(items);
+      if (items.length === 0) {
+        const res = content.filter((item) =>
+          item.authors[0].toLowerCase().includes(search.toLowerCase())
+        );
+        setLoopContent(res);
+      }
+    } else {
+      setLoopContent(content);
+    }
+  }, [search, content]);
 
   useEffect(() => {
     async function getData() {
@@ -36,21 +56,24 @@ const ContentWrapper = () => {
   }, [categoryId, page, size]);
 
   const bookList = (
-    <div className="wrapper p-12 grid grid-cols-2 gap-4 w-full">
-      {content.map((item) => {
+    <div className="wrapper lg:p-12 sm:p-8 p-4 grid lg:grid-cols-2 grid-cols-1 gap-4 w-full">
+      {loopContent.map((item) => {
         return (
-          <BookCard
-            title={item.title}
-            image={item.cover_url}
-            desc={item.description}
-            author={item.authors}
-            id={item.id}
-          />
+          <div className="wrapper" key={item.id}>
+            <BookCard
+              title={item.title}
+              image={item.cover_url}
+              desc={item.description}
+              author={item.authors}
+              id={item.id}
+            />
+          </div>
         );
       })}
       <div className="load-more flex items-center h-full justify-center">
         <Button
           font="font-opensans"
+          size="lg:text-base sm:text-sm"
           onClick={() => {
             size <= 5
               ? dispatch(setSize(size + 5))
@@ -66,15 +89,20 @@ const ContentWrapper = () => {
   );
   const noBook = (
     <div className="wrapper flex justify-center items-center h-full">
-      <Typography font="font-rubik" size="text-4xl" weight="font-semibold">
+      <Typography
+        font="font-rubik"
+        size="lg:text-4xl sm:text-2xl"
+        weight="font-semibold"
+      >
         Please Select Category
       </Typography>
     </div>
   );
   const buttonGroup = (
-    <div className="page flex justify-around pb-6">
+    <div className="page flex justify-around pb-6 ">
       <Button
         fontColor={page === 0 ? "text-slate-400" : "text-white"}
+        size="lg:text-base sm:text-sm"
         activeColor="text-slate-400"
         onClick={() => dispatch(setPage(page - 1))}
         disabled={page === 0 ? true : false}
@@ -89,6 +117,7 @@ const ContentWrapper = () => {
               : "text-white"
             : null
         }
+        size="lg:text-base sm:text-sm"
         onClick={() => dispatch(setPage(page + 1))}
         activeColor="text-slate-400"
         disabled={
@@ -106,7 +135,7 @@ const ContentWrapper = () => {
 
   return (
     <section className="bg-content w-full flex justify-center">
-      <Gap width="w-2/12" height="h-screen" />
+      <Gap width="md:w-2/12 w-1/12" height="h-screen" />
       <div className="content w-10/12 flex flex-col justify-between">
         {categoryId !== 0 ? bookList : noBook}
         {categoryId > 0 ? buttonGroup : null}

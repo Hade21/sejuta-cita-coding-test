@@ -6,7 +6,8 @@ const initialState = {
   page: 0,
   size: 5,
   contentBook: [],
-  bookmarked: [],
+  width: 0,
+  search: "",
 };
 
 export const bookSlice = createSlice({
@@ -43,10 +44,16 @@ export const bookSlice = createSlice({
         contentBook: action.payload,
       };
     },
-    setBookmarked: (state, action) => {
+    setWidth: (state, action) => {
       return {
         ...state,
-        bookmarked: [...state, action.payload],
+        width: action.payload,
+      };
+    },
+    setSearch: (state, action) => {
+      return {
+        ...state,
+        search: action.payload,
       };
     },
   },
@@ -58,7 +65,8 @@ export const {
   setPage,
   setSize,
   setContent,
-  setBookmarked,
+  setWidth,
+  setSearch,
 } = bookSlice.actions;
 
 export default bookSlice.reducer;

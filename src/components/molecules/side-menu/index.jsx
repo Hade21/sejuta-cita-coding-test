@@ -42,6 +42,7 @@ const SideMenu = () => {
             <li
               className="hover:bg-hover-bg hover:text-white px-8 py-4 cursor-pointer transition-all duration-200 text-slate-400 focus:bg-hover-bg focus:text-slate-400"
               id={item.id}
+              key={item.id}
               onClick={handleChoice}
             >
               <Typography

@@ -6,7 +6,6 @@ const initialState = {
   page: 0,
   size: 5,
   contentBook: [],
-  width: 0,
   search: "",
 };
 
@@ -44,12 +43,6 @@ export const bookSlice = createSlice({
         contentBook: action.payload,
       };
     },
-    setWidth: (state, action) => {
-      return {
-        ...state,
-        width: action.payload,
-      };
-    },
     setSearch: (state, action) => {
       return {
         ...state,
@@ -65,7 +58,6 @@ export const {
   setPage,
   setSize,
   setContent,
-  setWidth,
   setSearch,
 } = bookSlice.actions;
 

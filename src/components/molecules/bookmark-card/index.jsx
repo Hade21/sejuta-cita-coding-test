@@ -4,7 +4,7 @@ import React from "react";
 import { Button, Typography } from "../../atoms";
 
 const BookmarkCard = (props) => {
-  const { image, title, author, desc, handleRemove, id } = props;
+  const { image, title, author, desc, handleRemove, id, goDetail } = props;
 
   return (
     <div
@@ -13,7 +13,12 @@ const BookmarkCard = (props) => {
     >
       <div className="flex flex-col sm:flex-row gap-6 justify-between h-full">
         <div className="cover sm:w-2/5 w-full">
-          <img src={image} alt="cover" />
+          <img
+            src={image}
+            alt="cover"
+            onClick={goDetail}
+            className="cursor-pointer"
+          />
         </div>
         <div className="caption sm:w-3/5 w-full text-left flex flex-col gap-3 justify-between h-full">
           <div className="detail flex flex-col gap-3">

@@ -3,10 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "../../../app/api/axios";
-import {
-  setCategory,
-  setWidth,
-} from "../../../app/redux/features/content/bookSlice";
+import { setCategory } from "../../../app/redux/features/content/bookSlice";
 import { Typography } from "../../atoms";
 
 const SideMenu = () => {
@@ -15,15 +12,10 @@ const SideMenu = () => {
   const [open, setOpen] = useState(false);
   const [width, setWindowWidth] = useState(window.innerWidth);
 
-  const setWinWidth = () => {
-    setWindowWidth(window.innerWidth);
-    dispatch(setWidth(window.innerWidth));
-  };
-
   useEffect(() => {
-    window.addEventListener("resize", setWinWidth());
+    window.addEventListener("resize", setWindowWidth(window.innerWidth));
     return () => {
-      window.removeEventListener("resize", setWinWidth());
+      window.removeEventListener("resize", setWindowWidth(window.innerWidth));
     };
   }, [width]);
 

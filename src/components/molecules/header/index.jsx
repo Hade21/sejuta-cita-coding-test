@@ -5,7 +5,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -17,11 +17,18 @@ import { Gap, Input, Typography } from "../../atoms";
 const Header = () => {
   const dispatch = useDispatch();
   const halaman = useSelector((state) => state.book.halaman);
-  const width = useSelector((state) => state.book.width);
+  const [width, setWidth] = useState(window.innerWidth);
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    window.addEventListener("resize", setWidth(window.innerWidth));
+    return () => {
+      window.removeEventListener("resize", setWidth(window.innerWidth));
+    };
+  }, [width]);
+
   const menu = (
-    <div className="wrapper">
+    <div className="wrapper flex gap-6 items-center">
       <Input
         px="lg:px-4 px-2"
         py="lg:py-2 py-1"
@@ -116,9 +123,7 @@ const Header = () => {
           Book App
         </Typography>
       </div>
-      <div className="right-side flex gap-6 items-center">
-        {width > 640 ? menu : icon}
-      </div>
+      <div className="right-side">{width > 640 ? menu : icon}</div>
     </header>
   );
 };

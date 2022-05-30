@@ -5,6 +5,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from "../../../app/api/axios";
 import {
   setContent,
@@ -15,6 +16,7 @@ import { Button, Gap, Typography } from "../../atoms";
 import { BookCard } from "../../molecules";
 
 const ContentWrapper = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const page = useSelector((state) => state.book.page);
   const size = useSelector((state) => state.book.size);
@@ -55,6 +57,11 @@ const ContentWrapper = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId, page, size]);
 
+  const handleDetail = (e) => {
+    const id = Number(e.target.parentElement.parentElement.parentElement.id);
+    navigate(`/detail/${id}`);
+  };
+
   const bookList = (
     <div className="wrapper lg:p-12 sm:p-8 p-4 grid lg:grid-cols-2 grid-cols-1 gap-4 w-full">
       {loopContent.map((item) => {
@@ -66,6 +73,7 @@ const ContentWrapper = () => {
               desc={item.description}
               author={item.authors}
               id={item.id}
+              goDetail={handleDetail}
             />
           </div>
         );

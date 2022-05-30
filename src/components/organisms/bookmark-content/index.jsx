@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Typography, Button } from "../../atoms";
 import { BookmarkCard } from "../../molecules";
 
@@ -7,6 +8,7 @@ const BookmarkContent = () => {
   const [bookmarkedContent, setBookmarkedContent] = useState([]);
   const [content, setContent] = useState([]);
   const [page, setPage] = useState(0);
+  const navigate = useNavigate();
   const size = 5;
   const search = useSelector((state) => state.book.search);
 
@@ -55,6 +57,10 @@ const BookmarkContent = () => {
       setContent(bookmarkedContent);
     }
   };
+  const handleDetail = (e) => {
+    const id = Number(e.target.parentElement.parentElement.parentElement.id);
+    navigate(`/detail/${id}`);
+  };
 
   const bookList = (
     <div className="wrapper sm:p-12 py-12 px-4 grid lg:grid-cols-2 grid-cols-1 gap-4 w-full">
@@ -67,6 +73,7 @@ const BookmarkContent = () => {
             author={item.authors}
             id={item.id}
             handleRemove={handleRemove}
+            goDetail={handleDetail}
           />
         );
       })}

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Bookmark from "../../pages/bookmarked";
+import Detail from "../../pages/detail";
 import Home from "../../pages/home";
 
 const Router = () => {
@@ -13,6 +14,9 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/bookmarked" element={<Bookmark />} />
+        <Route path="/detail/">
+          <Route path=":id" element={<Detail />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

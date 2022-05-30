@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { Button, Typography } from "../../atoms";
 
 const BookCard = (props) => {
-  const { title, image, desc, author, id } = props;
+  const { title, image, desc, author, id, goDetail } = props;
   const [bookmark, setBookmark] = useState(false);
   const content = useSelector((state) => state.book.contentBook);
 
@@ -33,7 +33,12 @@ const BookCard = (props) => {
     >
       <div className="flex flex-col sm:flex-row gap-6 justify-between h-full">
         <div className="cover sm:w-2/5 w-full">
-          <img src={image} alt="cover" />
+          <img
+            src={image}
+            alt="cover"
+            onClick={goDetail}
+            className="cursor-pointer"
+          />
         </div>
         <div className="caption sm:w-3/5 w-full text-left flex flex-col gap-3 justify-between h-full">
           <div className="detail flex flex-col gap-3">
